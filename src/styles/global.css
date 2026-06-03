@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'OriginTech';
+  src: url('/origin_tech/OriginTech personal use.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --color-eva-bg: #0a0a0a;
+  --color-eva-purple: #6a0dad;
+  --color-eva-purple-light: #9d4edd;
+  --color-eva-green: #39ff14;
+  --color-eva-yellow: #ffea00;
+  --font-primary: 'OriginTech', "Outfit", "Inter", sans-serif;
+  --font-sans: "Outfit", "Inter", sans-serif;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-eva-bg);
+    color: #e5e5e5; /* Slightly softer white for readability */
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    letter-spacing: 0.02em; /* Increase base spacing */
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-primary);
+    color: white;
+    letter-spacing: 0.05em;
+  }
+  
+  ::selection {
+    background-color: var(--color-eva-green);
+    color: var(--color-eva-bg);
+  }
+}

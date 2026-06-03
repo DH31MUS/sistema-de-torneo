@@ -1,0 +1,52 @@
+---
+import { siteConfig } from '../config/site';
+---
+<footer class="bg-black border-t border-[#0047AB]/30 pt-16 pb-8 mt-20 relative overflow-hidden">
+  <div class="container mx-auto px-4 relative z-10">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+      <!-- Info -->
+      <div class="col-span-1 md:col-span-2">
+        <h3 class="text-2xl font-black mb-4 text-[#0047AB]">ROBOT TOURNAMENT</h3>
+        <p class="text-gray-400 max-w-sm mb-6">
+          El torneo de robótica más competitivo. Construye tu robot y domina la arena.
+        </p>
+        <div class="flex gap-4">
+          <a href={siteConfig.socials.facebook} class="w-10 h-10 rounded-full bg-[#1a1a1a] flex items-center justify-center hover:bg-[#0047AB] hover:text-white transition-colors border border-[#0047AB]/50 text-sm font-bold">
+            FB
+          </a>
+          <a href={siteConfig.socials.instagram} class="w-10 h-10 rounded-full bg-[#1a1a1a] flex items-center justify-center hover:bg-[#0047AB] hover:text-white transition-colors border border-[#0047AB]/50 text-sm font-bold">
+            IG
+          </a>
+        </div>
+      </div>
+
+      <!-- Links -->
+      <div>
+        <h4 class="font-bold text-[#39ff14] mb-4 uppercase tracking-wider">Explorar</h4>
+        <ul class="space-y-2 text-gray-400 text-sm">
+          <li><a href="/categorias" class="hover:text-white transition-colors">Categorías</a></li>
+          <li><a href="/acreditaciones" class="hover:text-white transition-colors">Acreditaciones</a></li>
+          <li><a href={siteConfig.links.reglamento} class="hover:text-white transition-colors">Reglamento</a></li>
+        </ul>
+      </div>
+
+      <!-- Sponsors Placeholder -->
+      <div class="col-span-1 md:col-span-2 lg:col-span-1">
+        <h4 class="font-bold text-[#39ff14] mb-4 uppercase tracking-wider">Sponsors</h4>
+        <div class="grid grid-cols-3 gap-6 items-center justify-items-center opacity-70 hover:opacity-100 transition-all text-gray-500">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hover:text-white transition-colors"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hover:text-white transition-colors"><circle cx="12" cy="12" r="10"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hover:text-white transition-colors"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hover:text-white transition-colors"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hover:text-white transition-colors"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hover:text-white transition-colors"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row items-center justify-between text-xs font-bold text-gray-500 uppercase tracking-widest">
+      <p>&copy; {new Date().getFullYear()} <a href="/admin-secreto-torneo" class="cursor-default hover:text-gray-400 transition-colors" title="">ROBOT TOURNAMENT</a>.</p>
+      <p>Prepara tus motores.</p>
+    </div>
+  </div>
+</footer>

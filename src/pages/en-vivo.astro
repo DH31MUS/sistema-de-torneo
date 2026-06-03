@@ -1,0 +1,13 @@
+---
+import { siteConfig } from '../config/site';
+---
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="refresh" content={`0;url=${siteConfig.links.live}`} />
+    <title>Redirigiendo al Live...</title>
+  </head>
+  <body class="bg-[#0a0a0a] text-white p-10 font-sans flex items-center justify-center min-h-screen">
+    <p class="text-xl">Redirigiendo al streaming en vivo... <a href={siteConfig.links.live} class="text-[#39ff14] underline font-bold ml-2">Haz clic aquí si no redirige</a></p>
+  </body>
+</html>

@@ -1,0 +1,110 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { db } from '../../db';
+import { equipos, llaves } from '../../db/schema';
+import { eq } from 'drizzle-orm';
+import { siteConfig } from '../../config/site';
+
+const { categoria } = Astro.params;
+const categoriaData = siteConfig.categorias.find(c => c.id === categoria);
+
+if (!categoriaData) {
+  return Astro.redirect('/categorias');
+}
+
+let bracketsData: any[] = [];
+let dbError = null;
+
+try {
+  const allMatches = await db.select().from(llaves).where(eq(llaves.categoriaId, categoria));
+  const allTeams = await db.select().from(equipos).where(eq(equipos.categoriaId, categoria));
+  const teamsMap = Object.fromEntries(allTeams.map(t => [t.id, t.name]));
+
+  bracketsData = allMatches.map(m => ({
+    ...m,
+    team1Name: m.equipo1Id ? teamsMap[m.equipo1Id] : 'Bye',
+    team2Name: m.equipo2Id ? teamsMap[m.equipo2Id] : 'Bye'
+  }));
+} catch (error) {
+  console.error("Database connection failed, using dummy data for now.", error);
+  dbError = "No se pudo conectar a PostgreSQL. Mostrando datos de prueba visuales.";
+  
+  bracketsData = [
+    { ronda: 1, equipo1Id: 1, equipo2Id: 2, ganadorId: 1, team1Name: "Eva-01", team2Name: "Sachiel" },
+    { ronda: 1, equipo1Id: 3, equipo2Id: 4, ganadorId: null, team1Name: "Gipsy Danger", team2Name: "Otachi" }
+  ];
+}
+---
+
+<Layout title={`Llaves - ${categoriaData.name}`}>
+  <section class="py-20 min-h-[80vh] relative">
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="flex flex-col md:flex-row items-center justify-between mb-12 border-b border-[#0047AB]/30 pb-6">
+        <div>
+          <h1 class="text-4xl md:text-5xl font-black uppercase tracking-widest text-[#39ff14] drop-shadow-[0_0_10px_rgba(57,255,20,0.5)]">
+            {categoriaData.name}
+          </h1>
+          <p class="text-[#0047AB] font-bold tracking-widest uppercase mt-2">Torneo Oficial</p>
+        </div>
+        <a href="/categorias" class="mt-6 md:mt-0 px-6 py-2 border border-gray-600 text-sm font-bold uppercase tracking-widest text-gray-400 hover:text-white hover:border-white transition-colors">
+          Volver a Categorías
+        </a>
+      </div>
+
+      {dbError && (
+        <div class="bg-red-900/40 border border-red-500 text-red-200 p-4 mb-8 rounded font-bold">
+          <p>⚠️ {dbError}</p>
+          <p class="text-sm font-normal text-red-300 mt-1">Asegúrate de que PostgreSQL esté corriendo y la URL en .env sea correcta.</p>
+        </div>
+      )}
+
+      <!-- Bracket UI -->
+      <div class="bg-[#111] border border-[#0047AB]/30 p-8 overflow-x-auto shadow-[0_0_30px_rgba(106,13,173,0.1)]">
+        {bracketsData.length === 0 ? (
+          <div class="text-center py-20">
+            <span class="text-[#ffea00] font-black text-2xl uppercase tracking-widest mb-4 block">Fase de Inscripción</span>
+            <p class="text-gray-500 font-bold uppercase">Aún no se han generado las llaves para esta categoría.</p>
+          </div>
+        ) : (
+          <div class="flex gap-12 min-w-max items-start justify-start">
+            {(() => {
+              const rondasUnicas = [...new Set(bracketsData.map(b => b.ronda))].sort((a, b) => a - b);
+              return rondasUnicas.map((ronda, index) => {
+                const matchesRonda = bracketsData.filter(b => b.ronda === ronda);
+                const isFinal = index === rondasUnicas.length - 1 && matchesRonda.length === 1;
+                const roundTitle = isFinal ? "Gran Final" : `Ronda ${ronda}`;
+                
+                return (
+                  <div class="flex flex-col gap-8 justify-center">
+                    <h3 class="text-[#0047AB] font-black uppercase tracking-widest mb-4 text-center bg-[#1a1a1a] py-2 px-4 rounded border border-[#0047AB]/30 shadow-[0_0_15px_rgba(106,13,173,0.2)]">{roundTitle}</h3>
+                    <div class="flex flex-col gap-8">
+                      {matchesRonda.map(match => (
+                        <div class="w-72 bg-[#0a0a0a] border border-[#0047AB]/50 rounded-sm overflow-hidden shadow-[0_0_10px_rgba(0,0,0,0.8)] relative group hover:border-[#39ff14]/50 transition-all">
+                          <div class="absolute left-0 top-0 bottom-0 w-1 bg-gray-800 group-hover:bg-[#39ff14] transition-colors"></div>
+                          
+                          <div class={`p-4 flex justify-between items-center transition-colors ${match.ganadorId === match.equipo1Id ? 'bg-[#39ff14]/10 border-b border-[#39ff14]/30' : 'border-b border-gray-800'}`}>
+                            <span class={`font-bold pl-2 ${match.ganadorId === match.equipo1Id ? 'text-[#39ff14]' : 'text-gray-200'}`}>
+                              {match.team1Name}
+                            </span>
+                            {match.ganadorId === match.equipo1Id && <span class="text-[#39ff14] font-black text-xs px-2 py-1 bg-[#39ff14]/20 rounded">WIN</span>}
+                          </div>
+                          
+                          <div class={`p-4 flex justify-between items-center transition-colors ${match.ganadorId === match.equipo2Id ? 'bg-[#39ff14]/10' : ''}`}>
+                            <span class={`font-bold pl-2 ${match.ganadorId === match.equipo2Id ? 'text-[#39ff14]' : 'text-gray-200'}`}>
+                              {match.team2Name}
+                            </span>
+                            {match.ganadorId === match.equipo2Id && <span class="text-[#39ff14] font-black text-xs px-2 py-1 bg-[#39ff14]/20 rounded">WIN</span>}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              });
+            })()}
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+</Layout>
