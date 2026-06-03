@@ -25,7 +25,7 @@ Un sistema moderno, rápido y estético para gestionar torneos de robótica. Per
 ### Vista de Espectador (Llaves del Torneo)
 > *Añade aquí una captura de cómo se ve el diseño de las llaves con los equipos compitiendo.*
 > 
-> `![Vista de Llaves](public/llaves.png)`
+> [pagina principal](public/llaves.png)
 
 ### Panel de Administración (Árbitro)
 > *Añade aquí una captura del panel de control donde se generan las llaves y se eligen a los ganadores.*
