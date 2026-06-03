@@ -7,9 +7,9 @@
 
 Un sistema moderno, rápido y estético para gestionar torneos de robótica. Permite registrar equipos, generar llaves de combate automáticamente y avanzar a los ganadores a través de un panel de control administrativo, mostrando los resultados en tiempo real a los espectadores.
 
-> *Reemplaza esta imagen con una captura de pantalla de la página principal del proyecto.*
+> *Vista principal de la plataforma.*
 > 
-> `![Página Principal](public/principal.png)`
+> ![Página Principal](./public/principal.png)
 
 ## ✨ Características
 
@@ -23,14 +23,16 @@ Un sistema moderno, rápido y estético para gestionar torneos de robótica. Per
 ## 📸 Pantallas (Screenshots)
 
 ### Vista de Espectador (Llaves del Torneo)
-> *Añade aquí una captura de cómo se ve el diseño de las llaves con los equipos compitiendo.*
+> *Diseño dinámico de las llaves con avance automático.*
 > 
-> [pagina principal](public/llaves.png)
+> ![Vista de Llaves](./public/llaves.png)
 
 ### Panel de Administración (Árbitro)
-> *Añade aquí una captura del panel de control donde se generan las llaves y se eligen a los ganadores.*
+> *Interfaz de control para administrar emparejamientos y resultados.*
 > 
-> `![Panel de Control](docs/screenshots/admin.png)`
+> ![Panel de Control Parte 1](./public/panel.png)
+> 
+> ![Panel de Control Parte 2](./public/panel2.png)
 
 ## 🛠️ Tecnologías Utilizadas
 
