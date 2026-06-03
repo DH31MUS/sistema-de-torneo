@@ -10,6 +10,10 @@ Un sistema moderno, rápido y estético para gestionar torneos de robótica. Per
 > *Vista principal de la plataforma.*
 > 
 > ![Página Principal](./public/principal.png)
+> ![Página Principal Parte 2](./public/principal2.png)
+> ![Página Principal Parte 3](./public/principal3.png)
+
+
 
 ## ✨ Características
 
